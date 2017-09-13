@@ -1,0 +1,5 @@
+bin/
+obj/
+SentimentAnalysis.cbp
+SentimentAnalysis.depend
+SentimentAnalysis.layout
