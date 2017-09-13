@@ -5,16 +5,18 @@
 #include <regex>
 #include <algorithm>
 #include <map>
+#include <unordered_set>
 
 using namespace std;
 
 void read_file(string, vector<string> &);
+void read_file(string, unordered_set<string> &);
 
 int main ()
 {
     //Reads stop words file and put them into a vector
 
-    vector<string> stop_words;
+    unordered_set<string> stop_words;
 
     read_file("stopWords.txt", stop_words);
 
@@ -50,7 +52,7 @@ int main ()
         for(int j = 1; j < (train_set_clean.size() - 1); j++)
         {
 
-            if (words.find(train_set_clean[j]) == words.end())
+            if ((words.find(train_set_clean[j]) == words.end()) && (stop_words.find(train_set_clean[j]) == stop_words.end()))
             {
                 words[train_set_clean[j]] = pair<int,int>(score,1);
 
@@ -78,6 +80,22 @@ void read_file(string file_name, vector<string> & vec)
     {
         getline(infile,str); // Saves the line in STRING.
         vec.push_back(str);
+    }
+
+	infile.close();
+}
+
+void read_file(string file_name, unordered_set<string> & unord)
+{
+    string str;
+	ifstream infile;
+
+	infile.open (file_name);
+
+    while(!infile.eof()) // To get you all the lines.
+    {
+        getline(infile,str); // Saves the line in STRING.
+        unord.insert(str);
     }
 
 	infile.close();
