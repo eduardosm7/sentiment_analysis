@@ -75,11 +75,6 @@ int main ()
         words_scores[it->first] = it->second.first / it->second.second;
     }
 
-    map<string,int>::iterator it2;
-
-    for(it2 = words_scores.begin(); it2 != words_scores.end(); it2++)
-        cout << it2->second << endl;
-
 }
 
 //Reads a file and put it's content into a given vector
