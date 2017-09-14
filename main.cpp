@@ -72,8 +72,13 @@ int main ()
 
     for(it = words.begin(); it != words.end(); it++)
     {
-        cout << it->second.second << endl;
+        words_scores[it->first] = it->second.first / it->second.second;
     }
+
+    map<string,int>::iterator it2;
+
+    for(it2 = words_scores.begin(); it2 != words_scores.end(); it2++)
+        cout << it2->second << endl;
 
 }
 
