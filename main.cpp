@@ -11,6 +11,7 @@ using namespace std;
 
 void read_file(string, vector<string> &);
 void read_file(string, unordered_set<string> &);
+void clean_up(vector<string> &);
 
 int main ()
 {
@@ -28,14 +29,7 @@ int main ()
 
     //Removes bad characters and lowers all the strings
 
-    regex bad_chars ("[^0-9A-Za-z ]");
-
-    for(int i = 0; i < train_set_raw.size(); i++)
-    {
-        train_set_raw[i] = regex_replace(train_set_raw[i],bad_chars," ");
-
-        transform(train_set_raw[i].begin(), train_set_raw[i].end(), train_set_raw[i].begin(), ::tolower);
-    }
+    clean_up(train_set_raw);
 
     //Splits the phrases and add each word to a map, with it's scores and couters
 
@@ -75,6 +69,37 @@ int main ()
         words_scores[it->first] = it->second.first / it->second.second;
     }
 
+    //Reads train set file and put it into a vector
+
+    vector<string> test_set_raw;
+
+    read_file("testSet.txt", test_set_raw);
+
+    //Removes bad characters and lowers all the strings
+
+    clean_up(test_set_raw);
+
+    //Splits the phrases and removes stop words
+
+    vector<vector<string>> test_set;
+
+    for(int i = 0; i < (test_set_raw.size() - 1); i++)
+    {
+
+        istringstream iss(test_set_raw[i]);
+        vector<string> test_set_split((istream_iterator<string>(iss)), istream_iterator<string>());
+
+        for(int i = 0; i < test_set_split.size(); i++)
+        {
+            if(stop_words.find(test_set_split[i]) != stop_words.end())
+            {
+                test_set_split.erase(test_set_split.begin()+i);
+            }
+        }
+
+        test_set.push_back(test_set_split);
+
+    }
 }
 
 //Reads a file and put it's content into a given vector
@@ -95,6 +120,8 @@ void read_file(string file_name, vector<string> & vec)
 	infile.close();
 }
 
+//Reads a file and put it's content into a given unordered set
+
 void read_file(string file_name, unordered_set<string> & unord)
 {
     string str;
@@ -109,4 +136,18 @@ void read_file(string file_name, unordered_set<string> & unord)
     }
 
 	infile.close();
+}
+
+//Removes bad characters and lowers all the strings
+
+void clean_up(vector<string> & vec)
+{
+    regex bad_chars ("[^0-9A-Za-z ]");
+
+    for(int i = 0; i < vec.size(); i++)
+    {
+        vec[i] = regex_replace(vec[i],bad_chars," ");
+
+        transform(vec[i].begin(), vec[i].end(), vec[i].begin(), ::tolower);
+    }
 }
