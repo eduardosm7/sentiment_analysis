@@ -12,6 +12,7 @@ using namespace std;
 void read_file(string, vector<string> &);
 void read_file(string, unordered_set<string> &);
 void clean_up(vector<string> &);
+double compute_sentiment(vector<string> &, map<string,double> &);
 
 int main ()
 {
@@ -61,12 +62,12 @@ int main ()
 
     //Creates a map with the pair <word,score>
 
-    map<string,int> words_scores;
+    map<string,double> words_scores;
     map<string,pair<int,int>>::iterator it;
 
     for(it = words.begin(); it != words.end(); it++)
     {
-        words_scores[it->first] = it->second.first / it->second.second;
+        words_scores[it->first] = static_cast<double>(it->second.first) / it->second.second;
     }
 
     //Reads train set file and put it into a vector
@@ -100,6 +101,8 @@ int main ()
         test_set.push_back(test_set_split);
 
     }
+
+    //
 }
 
 //Reads a file and put it's content into a given vector
@@ -149,5 +152,24 @@ void clean_up(vector<string> & vec)
         vec[i] = regex_replace(vec[i],bad_chars," ");
 
         transform(vec[i].begin(), vec[i].end(), vec[i].begin(), ::tolower);
+    }
+}
+
+//Takes a review and atributes a score
+
+double compute_sentiment(vector<string> & vec, map<string,double> & words)
+{
+    double total_score = 0.0;
+
+    for(int i = 1; i < vec.size(); i++)
+    {
+        if(words.find(vec[i]) != words.end())
+        {
+            total_score += words[vec[i]];
+        }
+        else
+        {
+            total_score += 2;
+        }
     }
 }
