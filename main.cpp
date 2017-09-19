@@ -110,9 +110,9 @@ int main ()
 void read_file(string file_name, vector<string> & vec)
 {
     string str;
-	ifstream infile;
+    ifstream infile;
 
-	infile.open (file_name);
+    infile.open (file_name);
 
     while(!infile.eof()) // To get you all the lines.
     {
@@ -128,9 +128,9 @@ void read_file(string file_name, vector<string> & vec)
 void read_file(string file_name, unordered_set<string> & unord)
 {
     string str;
-	ifstream infile;
+    ifstream infile;
 
-	infile.open (file_name);
+    infile.open (file_name);
 
     while(!infile.eof()) // To get you all the lines.
     {
