@@ -1,5 +1,6 @@
 bin/
 obj/
-SentimentAnalysis.cbp
-SentimentAnalysis.depend
-SentimentAnalysis.layout
+sentimentanalysis.cbp
+sentimentanalysis.depend
+sentimentanalysis.layout
+main.out
