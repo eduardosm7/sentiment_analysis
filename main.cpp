@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <map>
 #include <unordered_set>
+#include <math.h>
 
 using namespace std;
 
@@ -102,7 +103,21 @@ int main ()
 
     }
 
-    //
+    //Inserts the difference between the real score and the expected score in a vector
+
+    vector<double> errors;
+
+    for(int i = 0; i < test_set.size(); i++)
+    {
+        double expected = compute_sentiment(test_set[i],words_scores);
+        int real = stoi(test_set[i][0]);
+        errors.push_back(fabs(expected - real));
+    }
+
+    for(double i : errors)
+    {
+        cout << i << endl;
+    }
 }
 
 //Reads a file and put it's content into a given vector
@@ -172,4 +187,6 @@ double compute_sentiment(vector<string> & vec, map<string,double> & words)
             total_score += 2;
         }
     }
+
+    return total_score/vec.size();
 }
