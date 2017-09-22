@@ -89,11 +89,11 @@ int main ()
     {
 
         istringstream iss(test_set_raw[i]);
-        vector<string> test_set_split((istream_iterator<string>(iss)), istream_iterator<string>());
+        vector<string> test_set_split((istream_iterator<string>(iss)), istream_iterator<string>()); //Splits
 
         for(int i = 0; i < test_set_split.size(); i++)
         {
-            if(stop_words.find(test_set_split[i]) != stop_words.end())
+            if(stop_words.find(test_set_split[i]) != stop_words.end()) //Removes stop words
             {
                 test_set_split.erase(test_set_split.begin()+i);
             }
@@ -111,8 +111,24 @@ int main ()
     {
         double expected = compute_sentiment(test_set[i],words_scores);
         int real = stoi(test_set[i][0]);
-        errors.push_back(fabs(expected - real));
+        errors.push_back(fabs(expected - real)); //Absolute value
     }
+
+    //Sums the square of the erros
+
+    double sse = 0;
+    int counter = 0;
+
+    for(double d : errors)
+    {
+        sse += d * d;
+        counter++;
+    }
+
+    //Outputs the results
+
+    cout << "The sum of the squared errors is equal to " << sse << endl;
+    cout << "The average of the sum of the squared erros is equal to " << sse/counter << endl;
 
 }
 
