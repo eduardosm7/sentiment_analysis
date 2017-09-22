@@ -15,8 +15,16 @@ void read_file(string, unordered_set<string> &);
 void clean_up(vector<string> &);
 double compute_sentiment(vector<string> &, map<string,double> &);
 
-int main ()
+int main (int argc, char* argv[])
 {
+    //Checks if numbers of parameters equals 3
+
+    if(argc != 3)
+    {
+        cerr << "Incorrect number of arguments." << endl;
+        return 1;
+    }
+
     //Reads stop words file and put them into a vector
 
     unordered_set<string> stop_words;
@@ -27,7 +35,7 @@ int main ()
 
     vector<string> train_set_raw;
 
-    read_file("trainSet.txt", train_set_raw);
+    read_file(argv[1], train_set_raw);
 
     //Removes bad characters and lowers all the strings
 
@@ -75,7 +83,7 @@ int main ()
 
     vector<string> test_set_raw;
 
-    read_file("testSet.txt", test_set_raw);
+    read_file(argv[2], test_set_raw);
 
     //Removes bad characters and lowers all the strings
 
