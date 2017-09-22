@@ -103,7 +103,7 @@ int main ()
 
     }
 
-    //Inserts the difference between the real score and the expected score in a vector
+    //Inserts the difference between the real score and the expected score into a vector
 
     vector<double> errors;
 
@@ -114,10 +114,6 @@ int main ()
         errors.push_back(fabs(expected - real));
     }
 
-    for(double i : errors)
-    {
-        cout << i << endl;
-    }
 }
 
 //Reads a file and put it's content into a given vector
