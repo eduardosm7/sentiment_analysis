@@ -79,7 +79,7 @@ int main (int argc, char* argv[])
         words_scores[it->first] = static_cast<double>(it->second.first) / it->second.second;
     }
 
-    //Reads train set file and put it into a vector
+    //Reads test set file and put it into a vector
 
     vector<string> test_set_raw;
 
